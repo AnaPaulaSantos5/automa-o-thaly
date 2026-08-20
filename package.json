@@ -1,0 +1,14 @@
+{
+  "name": "cruzeiro-automacao",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "playwright": "^1.47.0",
+    "resend": "^4.0.0",
+    "@anthropic-ai/sdk": "^0.30.0",
+    "dotenv": "^16.4.5"
+  }
+}
