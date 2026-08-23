@@ -9,7 +9,15 @@ export async function loginNoPortal() {
   await page.goto('https://sso.cruzeirodosul.edu.br/?origin=https:%2F%2Fnovoportal.cruzeirodosul.edu.br&blackboard=false&terminal=false&empresa=up');
 
   // Tela 1 - Microsoft pede o e-mail/usuário institucional
-  await page.waitForSelector('#i0116', { timeout: 15000 });
+  try {
+    await page.waitForSelector('#i0116', { timeout: 15000 });
+  } catch (err) {
+    // Salva screenshot e HTML pra diagnosticar o que apareceu de fato
+    await page.screenshot({ path: 'debug-erro-login.png', fullPage: true });
+    const fs = await import('fs');
+    fs.writeFileSync('debug-erro-login.html', await page.content());
+    throw err;
+  }
   await page.fill('#i0116', process.env.PORTAL_LOGIN);
   await page.click('#idSIButton9'); // botão "Avançar"
 
